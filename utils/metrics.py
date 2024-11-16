@@ -56,7 +56,7 @@ def hausdorff_distance(predictions, labels, num_classes, spacing=[1, 1, 1]):
                 hausdorff_distance_filter.Execute(pred_img, lab_img)
                 hd = hausdorff_distance_filter.GetHausdorffDistance()
             except:
-                hd = np.Inf
+                hd = np.inf
             result.append(hd)
         return torch.tensor(np.asarray(result))
     return multi_class_score(one_class_hausdorff_distance, predictions, labels, num_classes=num_classes)

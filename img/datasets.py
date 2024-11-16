@@ -5,7 +5,7 @@ import pandas as pd
 import SimpleITK as sitk
 import torchio as tio
 from tqdm import tqdm
-from torch.utils.data import Dataset, DataLoader
+from torch.utils.data import Dataset
 from img.processing import one_hot_labelmap
 
 

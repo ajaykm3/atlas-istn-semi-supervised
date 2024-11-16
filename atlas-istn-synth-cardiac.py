@@ -3,6 +3,7 @@ import json
 import argparse
 import torch
 import torch.nn.functional as F
+import torchio
 from tqdm import tqdm
 import yaml
 
@@ -16,10 +17,6 @@ try:
 
     print('Set matplotlib backend to interagg')
 except ImportError:
-    print('Cannot set matplotlib backend to interagg, resorting to default backend {}'.format(back_end))
-    mpl.use(back_end)
-    import matplotlib.pyplot as plt
-except ModuleNotFoundError:
     print('Cannot set matplotlib backend to interagg, resorting to default backend {}'.format(back_end))
     mpl.use(back_end)
     import matplotlib.pyplot as plt
@@ -39,7 +36,7 @@ import utils.metrics as mira_metrics
 import utils.tensorboard_helpers as mira_th
 import utils.vis_helpers as mira_vis
 from tensorboardX import SummaryWriter
-from attrdict import AttrDict
+from types import SimpleNamespace
 
 separator = '----------------------------------------'
 
@@ -156,7 +153,7 @@ def set_up_model_and_preprocessing(phase, args):
                    }
     print('File config: {}'.format(config_dict))
 
-    return AttrDict(config_dict)
+    return SimpleNamespace(**config_dict)
 
 
 def process_batch(config, batch_samples, atlas_img, atlas_lab, omega):
@@ -429,7 +426,7 @@ def train(args):
 
     dataset_train = ImageSegmentationOneHotDataset(args.train, args.train_seg, args.train_msk, normalizer=config.normalizer,
                                        resampler_img=config.resampler_img, resampler_seg=config.resampler_seg, binarize=config.config['binarize'], augmentation=True)
-    dataloader_train = torch.utils.data.DataLoader(dataset_train, batch_size=config.config['batch_size'], shuffle=True)
+    dataloader_train = torchio.SubjectsLoader(dataset_train, batch_size=config.config['batch_size'], shuffle=True)
 
     if args.val is not None:
         print(separator)
@@ -437,7 +434,7 @@ def train(args):
         print(separator)
         dataset_val = ImageSegmentationOneHotDataset(args.val, args.val_seg, args.val_msk, normalizer=config.normalizer,
                                          resampler_img=config.resampler_img, resampler_seg=config.resampler_seg, binarize=config.config['binarize'], augmentation=False)
-        dataloader_val = torch.utils.data.DataLoader(dataset_val, batch_size=1, shuffle=False)
+        dataloader_val = torchio.SubjectsLoader(dataset_val, batch_size=1, shuffle=False)
 
     # Create output directory
     out_dir = os.path.join(args.out, 'train')
@@ -551,7 +548,7 @@ def test(args):
 
     dataset_test = ImageSegmentationOneHotDataset(args.test, args.test_seg, args.test_msk, normalizer=config.normalizer,
                                       resampler_img=config.resampler_img, resampler_seg=config.resampler_seg, binarize=config.config['binarize'], augmentation=False)
-    dataloader_test = torch.utils.data.DataLoader(dataset_test, batch_size=1, shuffle=False)
+    dataloader_test = torchio.SubjectsLoader(dataset_test, batch_size=1, shuffle=False)
     loss_names = ['01_loss', '02_reg_term', '03_metric_dice_id', '04_metric_dice_itn', '05_metric_dice_atl', '06_metric_asd_id', '07_metric_asd_itn', '08_metric_asd_atl', '09_metric_hd_id', '10_metric_hd_itn', '11_metric_hd_atl', '12_metric_prec_id', '13_metric_prec_itn', '14_metric_prec_atl', '15_metric_reca_id', '16_metric_reca_itn', '17_metric_reca_atl']
     test_logger = mira_metrics.Logger('TEST', loss_names)
 

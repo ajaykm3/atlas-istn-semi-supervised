@@ -39,7 +39,7 @@ import utils.metrics as mira_metrics
 import utils.tensorboard_helpers as mira_th
 import utils.vis_helpers as mira_vis
 from tensorboardX import SummaryWriter
-from attrdict import AttrDict
+from types import SimpleNamespace
 
 separator = '----------------------------------------'
 
@@ -156,7 +156,7 @@ def set_up_model_and_preprocessing(phase, args):
                    }
     print('File config: {}'.format(config_dict))
 
-    return AttrDict(config_dict)
+    return SimpleNamespace(**config_dict)
 
 
 def process_batch(config, batch_samples, atlas_img, atlas_lab, omega):

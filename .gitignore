@@ -1,0 +1,6 @@
+.idea/
+data/synth3d
+img/__pycache__/
+nets/__pycache__/
+output/
+utils/__pycache__/
