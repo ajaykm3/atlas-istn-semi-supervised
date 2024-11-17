@@ -704,21 +704,22 @@ if __name__ == '__main__':
     # SYNTH 2D
     #
     # Data args
-    parser.add_argument('--train', default='data/synth2d/train.csv', help='training data csv file')
-    parser.add_argument('--train_seg', default='data/synth2d/train.seg.csv', help='training data csv file')
+    parser.add_argument('--root-data-path', default='/vol/bitbucket/akm20/atlas-istn-semi-supervised/data/synth2d', help='training data csv file')
+    parser.add_argument('--train', default='/vol/bitbucket/akm20/atlas-istn-semi-supervised/data/synth2d/train.csv', help='training data csv file')
+    parser.add_argument('--train_seg', default='/vol/bitbucket/akm20/atlas-istn-semi-supervised/data/synth2d/train.seg.csv', help='training data csv file')
     parser.add_argument('--train_msk', default=None, help='training data csv file')
-    parser.add_argument('--val', default='data/synth2d/val.csv', help='validation data csv file')
-    parser.add_argument('--val_seg', default='data/synth2d/val.seg.csv', help='validation data csv file')
+    parser.add_argument('--val', default='/vol/bitbucket/akm20/atlas-istn-semi-supervised/data/synth2d/val.csv', help='validation data csv file')
+    parser.add_argument('--val_seg', default='/vol/bitbucket/akm20/atlas-istn-semi-supervised/data/synth2d/val.seg.csv', help='validation data csv file')
     parser.add_argument('--val_msk', default=None, help='validation data csv file')
-    parser.add_argument('--test', default='data/synth2d/test.corrupt.csv', help='testing data csv file')
-    parser.add_argument('--test_seg', default='data/synth2d/test.corrupt.seg.csv', help='testing data csv file')
-    # parser.add_argument('--test', default='data/synth2d/test.example.img.csv', help='testing data csv file')
-    # parser.add_argument('--test_seg', default='data/synth2d/test.example.seg.csv', help='testing data csv file')
+    parser.add_argument('--test', default='/vol/bitbucket/akm20/atlas-istn-semi-supervised/data/synth2d/test.corrupt.csv', help='testing data csv file')
+    parser.add_argument('--test_seg', default='/vol/bitbucket/akm20/atlas-istn-semi-supervised/data/synth2d/test.corrupt.seg.csv', help='testing data csv file')
+    # parser.add_argument('--test', default='/vol/bitbucket/akm20/atlas-istn-semi-supervised/data/synth2d/test.example.img.csv', help='testing data csv file')
+    # parser.add_argument('--test_seg', default='/vol/bitbucket/akm20/atlas-istn-semi-supervised/data/synth2d/test.example.seg.csv', help='testing data csv file')
     parser.add_argument('--test_msk', default=None, help='testing data csv file')
 
     # Network args
     parser.add_argument('--mode3d', default=False, action='store_true', help='enable 3D mode', )
-    parser.add_argument('--config', default="data/synth2d/config.json", help='config file')
+    parser.add_argument('--config', default="/vol/bitbucket/akm20/atlas-istn-semi-supervised/data/synth2d/config.json", help='config file')
 
     # Logging args
     parser.add_argument('--out', default='output/synth2d/full-stn', help='output root directory')
