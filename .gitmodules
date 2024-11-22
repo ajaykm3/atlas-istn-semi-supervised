@@ -1,0 +1,3 @@
+[submodule "TotalSegmentator"]
+	path = TotalSegmentator
+	url = git@github.com:wasserth/TotalSegmentator.git
