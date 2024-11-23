@@ -10,22 +10,22 @@ For running the code, we recommend setting up a dedicated Python environment.
 
 ### Setup Python environment using conda
 
-Create and activate a Python 3.8 conda environment:
+Create and activate a Python 3.9 conda environment:
 
    ```shell
-   conda create -n pyatlas python=3.8
+   conda create -n pyatlas python=3.9
    conda activate pyatlas
    ```
    
-Install PyTorch using conda (for CUDA Toolkit 11.3):
+Install PyTorch using conda (for CUDA Toolkit 12.4):
    
    ```shell
-   conda install pytorch torchvision cudatoolkit=11.3 -c pytorch
+   conda install pytorch torchvision torchaudio pytorch-cuda=12.4 -c pytorch -c nvidia
    ```
    
 ### Setup Python environment using virtualenv
 
-Create and activate a Python 3.8 virtual environment:
+Create and activate a Python 3.9 virtual environment:
 
    ```shell
    virtualenv -p python3 <path_to_envs>/pyatlas
